@@ -1,0 +1,25 @@
+@main("Cadastrar Livro") {
+    <h1>Cadastrar Novo livro</h1>
+    <div>
+        <form action="/cadastro/livro" id="myForm" enctype="multipart/form-data" method="post">
+            <label for="nome">Nome
+                <input type="text" name="nome" id="nome">
+            </label>
+            </br>
+            <label for="descricao">Descrição
+                <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+            </label>
+            </br>
+            <label for="file">Arquivo
+                <input type="file" size="60" name="fileUpload">
+            </label>
+            <input type="submit" value="Ajax File Upload">
+        </form>
+        <div class="progress">
+            <div class="progress-bar" id="ajaxprogressbar">
+            </div>
+        </div>
+        <div id="message"></div>
+    </div>
+
+}
