@@ -11,13 +11,13 @@ public class Usuario extends Model implements logar {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "nome",
-            columnDefinition = "NOT NULL")
+            columnDefinition = "varchar(25) NOT NULL")
     private String nome;
     @Column(name = "email",
-            columnDefinition = "NOT NULL")
+        columnDefinition = "varchar(25) NOT NULL")
     private String email;
     @Column(name = "senha",
-            columnDefinition = "NOT NULL")
+            columnDefinition = "varchar(25) NOT NULL")
     private String senha;
 
     public int getId() {

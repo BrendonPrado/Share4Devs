@@ -37,7 +37,7 @@ public class CadastroController extends Controller {
     public Result logar() {
         EbeanServer ebeans = Ebean.getDefaultServer();
         DynamicForm form = formularios.form().bindFromRequest();
-        Usuario user = ebeans.find(Usuario.class).where().like(".email", form.get("email")).findUnique();
+        Usuario user = ebeans.find(Usuario.class).where().like("email", form.get("email")).findUnique();
         if (user.login(form.get("pass"))) {
             session().clear();
             session().put(form.get("email"), form.get("pass"));
@@ -67,8 +67,8 @@ public class CadastroController extends Controller {
             String contentType = arquivo.getContentType();
             File file = (File) arquivo.getFile();
             FileUtils.move(file.getAbsolutePath(), "public/livros/livro.pdf");
+            return ok("File uploaded" );
 
-            return ok("File uploaded" + " " + file.getName());
         } else {
             flash("error", "Missing file");
             return redirect(routes.CadastroController.login());
