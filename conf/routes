@@ -1,11 +1,12 @@
-GET         /cadastro/novo         controllers.CadastroController.formularioDeNovoProduto
-POST        /cadastro/novo         controllers.CadastroController.salvaNovoProduto
+GET         /cadastro/novo         controllers.UsuarioController.formularioNovoUsuario
+POST        /cadastro/novo         controllers.UsuarioController.salvaNovoUsuario
 
-GET         /cadastro/livro        controllers.CadastroController.CadastroLivro
-POST        /cadastro/livro        controllers.CadastroController.SalvaNovoLivro
+GET         /login                 controllers.UsuarioController.login
+POST        /login/logar           controllers.UsuarioController.logar
 
-GET         /login                 controllers.CadastroController.login
-POST        /login/logar           controllers.CadastroController.logar
+GET         /cadastro/livro        controllers.LivroController.CadastroLivro
+POST        /cadastro/livro        controllers.LivroController.SalvaNovoLivro
+
 
 
 

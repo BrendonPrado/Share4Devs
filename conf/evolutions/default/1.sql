@@ -15,6 +15,7 @@ create table livro (
   descricao                     mediumtext not null,
   caminho                        mediumtext Not null,
   categoria_id                  integer not null,
+  usuario_dono_id               integer not null,
   constraint pk_livro primary key (id)
 );
 
@@ -29,11 +30,17 @@ create table usuario (
 alter table livro add constraint fk_livro_categoria_id foreign key (categoria_id) references categoria (id) on delete restrict on update restrict;
 create index ix_livro_categoria_id on livro (categoria_id);
 
+alter table livro add constraint fk_livro_usuario_dono_id foreign key (usuario_dono_id) references usuario (id) on delete restrict on update restrict;
+create index ix_livro_usuario_dono_id on livro (usuario_dono_id);
+
 
 # --- !Downs
 
 alter table livro drop foreign key fk_livro_categoria_id;
 drop index ix_livro_categoria_id on livro;
+
+alter table livro drop foreign key fk_livro_usuario_dono_id;
+drop index ix_livro_usuario_dono_id on livro;
 
 drop table if exists categoria;
 
