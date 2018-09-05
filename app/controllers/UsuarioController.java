@@ -1,22 +1,17 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.EbeanServer;
 import models.Usuario;
 import models.UsuarioDAO;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
-import views.html.cadastroLivro;
 import views.html.formularioNovo;
 import views.html.landing;
 import views.html.login;
 
 import javax.inject.Inject;
-import java.io.File;
 
 public class UsuarioController extends Controller {
 
@@ -36,15 +31,14 @@ public class UsuarioController extends Controller {
     }
 
     public Result logar() {
-        EbeanServer ebeans = Ebean.getDefaultServer();
         DynamicForm form = formularios.form().bindFromRequest();
         Usuario user = usuarioDAO.SelectPorEmail(form.get("email"));
-        if (user.login(form.get("pass"))) {
+        if (user!=null && user.login(form.get("pass"))){
             session().clear();
             session().put(form.get("email"), form.get("pass"));
             return ok(landing.render());
         } else {
-            return ok(login.render("Senha ou email in"));
+            return ok(("Senha ou email in"));
         }
     }
 

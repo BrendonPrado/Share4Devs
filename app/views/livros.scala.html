@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>$Title$</title>
-    </head>
-    <body>
-$END$
-    </body>
-</html>
+@(livros: List[Livro])
+
+@main("Livros Compartilhados"){
+    <div>
+        <ol>
+            <tr>
+                <th>Nome do Livro</th>
+                <th>Descrição</th>
+                <th>categoria</th>
+            </tr>
+        @for(livro <- livros){
+            <div>
+               <td>@livro.getNome</td>
+               <td>@livro.getDescricao</td>
+                <td>@livro.getCategoria.getName_cat</td>
+                <td><a type="submit" href="/livro/down/@livro.getId" method="post">Download</a></td>
+            </div>
+        }
+        </ol>
+    </div>
+}

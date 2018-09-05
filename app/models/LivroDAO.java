@@ -3,22 +3,29 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
 
+import java.util.List;
+
 public class LivroDAO {
+    private  EbeanServer ebeans = Ebean.getDefaultServer();
+
     public void Insert(Livro l){
         l.save();
     }
+    public Livro SelectPorID(String id){
+        Livro l = ebeans.find(Livro.class).where().like("id",id).findUnique();
+        return l;
+    }
+
+
     public Livro SelectPorNome(String n){
-        EbeanServer ebeans = Ebean.getDefaultServer();
         Livro l = ebeans.find(Livro.class).where().like("nome", n).findUnique();
         return l;
     }
-    public Livro SelectPorCateg(int id){
-        EbeanServer ebeans =Ebean.getDefaultServer();
-        Livro l = ebeans.find(Livro.class).where().like("categoria_id", String.valueOf(id)).findUnique();
+    public List<Livro> SelectPorCateg(String id){
+        List<Livro>  l = ebeans.find(Livro.class).where().like("categoria_id", id).findList();
         return l;
     }
-    public Livro SelectPorUsuario(int id){
-        EbeanServer ebeans = Ebean.getDefaultServer();
+    public Livro SelectPorUsuario(String id){
         Livro l = ebeans.find(Livro.class).where().like("usuario_dono_id", String.valueOf(id)).findUnique();
         return l;
     }

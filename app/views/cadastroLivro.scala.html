@@ -1,19 +1,26 @@
+@(categorias: List[Categoria])
+
 @main("Cadastrar Livro") {
     <h1>Cadastrar Novo livro</h1>
     <div>
         <form action="/cadastro/livro" id="myForm" enctype="multipart/form-data" method="post">
             <label for="nome">Nome
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" required>
             </label>
             </br>
             <label for="descricao">Descrição
-                <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+                <textarea name="descricao" id="descricao" cols="30" rows="10" required></textarea>
             </label>
+            <select name="categoria" id="categoria" required>
+                @for(categoria <- categorias){
+                    <option value="@categoria.getName_cat">@categoria.getName_cat</option>
+                }
+            </select>
             </br>
             <label for="file">Arquivo
-                <input type="file" size="60" name="fileUpload">
+                <input type="file" size="60" name="fileUpload" required>
             </label>
-            <input type="submit" value="Ajax File Upload">
+            <input type="submit" value=" Enviar">
         </form>
         <div class="progress">
             <div class="progress-bar" id="ajaxprogressbar">

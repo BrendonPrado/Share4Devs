@@ -26,6 +26,14 @@ public class Livro extends Model {
     @ManyToOne(targetEntity = Usuario.class,optional = false)
     private Usuario usuario_dono;
 
+    public Livro(String nome, String descricao, String caminho, Categoria categoria, Usuario usuario_dono) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.caminho = caminho;
+        this.categoria = categoria;
+        this.usuario_dono = usuario_dono;
+    }
+
     public int getId() {
         return id;
     }

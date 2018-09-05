@@ -7,7 +7,9 @@ POST        /login/logar           controllers.UsuarioController.logar
 GET         /cadastro/livro        controllers.LivroController.CadastroLivro
 POST        /cadastro/livro        controllers.LivroController.SalvaNovoLivro
 
-
+GET         /livros                controllers.LivroController.PaginaIni
+GET         /livros/*id            controllers.LivroController.MostraLivros(id)
+GET         /livro/down/*id       controllers.LivroController.DownloadLivro(id)
 
 
 

@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>$Title$</title>
-    </head>
-    <body>
-$END$
-    </body>
-</html>
+@(categorias : List[Categoria])
+
+@main("Pagina inicial"){
+    <ol>
+        @for(categoria <- categorias){
+            <li><a href="/livros/@categoria.getId">@categoria.getName_cat"</a></li>
+        }
+    </ol>
+
+
+}
