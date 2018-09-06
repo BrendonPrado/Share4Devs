@@ -25,8 +25,8 @@ public class LivroDAO {
         List<Livro>  l = ebeans.find(Livro.class).where().like("categoria_id", id).findList();
         return l;
     }
-    public Livro SelectPorUsuario(String id){
-        Livro l = ebeans.find(Livro.class).where().like("usuario_dono_id", String.valueOf(id)).findUnique();
+    public List<Livro> SelectPorUsuario(String id){
+        List<Livro> l = ebeans.find(Livro.class).where().like("usuario_dono_id", id).findList();
         return l;
     }
 

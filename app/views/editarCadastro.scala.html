@@ -1,0 +1,12 @@
+@(user : Usuario)
+
+@main("Editar Cadastro"){
+    <form action="/edit/cadastro" method="post">
+        <label for="nome">nome
+            <input type="text" name="nome" id="nome" value="@user.getNome"></label><br></br>
+        <label for="email">Email
+            <input type="email" name="email" id="email" value="@user.getEmail">
+        </label><br></br>
+        <button type="submit">Salvar alterações</button>
+    </form>
+}

@@ -73,4 +73,9 @@ public class Livro extends Model {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    public Usuario getUsuario_dono() {
+        return usuario_dono;
+    }
+
 }

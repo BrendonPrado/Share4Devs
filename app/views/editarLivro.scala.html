@@ -1,0 +1,20 @@
+@(livro: Livro , categorias: List[Categoria])
+
+@main("Editar"){
+    <div>
+        <form action="/livro/edit/@livro.getId" method="post">
+        <label for="nome">Nome:
+            <input type="text" name="nome" id="nome"  value="@livro.getNome" required></label>
+        <label for="descricao">
+            <textarea name="descricao" id="descricao" cols="30" rows="10" required>@livro.getDescricao</textarea>
+        </label>
+            <select name="categoria" id="categoria" required>
+                <option value="@livro.getCategoria.getName_cat">@livro.getCategoria.getName_cat</option>
+                @for(categoria <- categorias){
+                <option value="@categoria.getName_cat">@categoria.getName_cat</option>
+            }
+            </select>
+            <button type="submit">Salvar alterçoões</button>
+        </form>
+    </div>
+}

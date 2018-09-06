@@ -1,5 +1,8 @@
 @(message: String)
     @main("Logar Sistema") {
+        @if(!message.isEmpty){
+            <span class="alert-danger">@message</span>
+        }
         <form action="/login/logar" method="post">
             <label for="email">Email
                 <input type="email" id="email" name="email"></label>
@@ -7,4 +10,6 @@
                 <input type="password" id="pass" name="pass"></label>
             <button type="submit">Login</button>
         </form>
+
+        <a href="/cadastro/novo">Não tem Uma conta? Cadastre-se já!</a>
     }

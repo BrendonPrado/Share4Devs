@@ -1,0 +1,19 @@
+@(msg :String)
+@main("Redefina sua Senha"){
+
+    <h1>Redefinir Senha</h1>
+    @if(!msg.isEmpty){
+        <h3>@msg</h3>
+    }
+    <form action="/redefinir/senha" method="post">
+        <label for="senha">
+            <input type="text" name="senha" id="senha">
+        </label>
+        <label for="conf_senha">
+            <input type="text" name="conf_senha" id="conf_senha">
+        </label>
+        <button type="submit">Redefinir Senha</button>
+        </label>
+    </form>
+
+}

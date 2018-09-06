@@ -1,0 +1,25 @@
+@(user : Usuario, msg : String)
+
+@main("Gerenciar conta"){
+    @if(!msg.isEmpty){
+        <span class="alert-success">@msg</span>
+    }
+    <div>
+        <h3>Nome atual:</h3>
+        <h3><b>@user.getNome</b></h3>
+    </div>
+    <div>
+        <p>Email atual:</p><p><b>@user.getEmail</b></p>
+    </div>
+    <h1><a href="/edit/cadastro">Editar Nome ou Email</a></h1>
+    <div>
+        <h3><a href="/edit/senha">Redefinir Senha</a></h3>
+        <h3><a onclick="confirmacao" href="/remover/cadastro">Excluir Conta</a></h3>
+    </div>
+    <script language=javascript>
+            function confirmacao(){
+                if (confirm("tem certeza?"))
+                    alert("Livro apagado")
+            }
+    </script>
+}

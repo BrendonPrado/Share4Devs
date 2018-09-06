@@ -11,9 +11,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.cadastroLivro;
-import views.html.inicial;
-import views.html.livros;
+import views.html.*;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -68,6 +66,9 @@ public class LivroController extends Controller {
         }
 
         public Result MostraLivros(String id){
+            if (session().keySet().size() == 0) {
+                return ok("Faça o login primeiro");
+            }
             List<Livro> l  = livroDAO.SelectPorCateg(id);
             if(l.size()==0){
                 return ok("não há livros cadastrados");
@@ -76,12 +77,50 @@ public class LivroController extends Controller {
         }
 
         public Result DownloadLivro(String id){
+            if (session().keySet().size() == 0) {
+                return ok("Faça o login primeiro");
+            }
             Livro l = livroDAO.SelectPorID(id);
             java.io.File file = new java.io.File(l.getCaminho());
             java.nio.file.Path path = file.toPath();
             Source<ByteString, ?> source = FileIO.fromPath(path);
-
             return ok().sendFile(file,false);
         }
 
+        public Result EditarLivro(String id){
+        if (session().keySet().size() == 0) {
+                return ok("Faça o login primeiro");
+            }
+        Livro l = livroDAO.SelectPorID(id);
+        List<Categoria> cat = categoriaDAO.SelectALL();
+        cat.remove(l.getCategoria());
+        return ok(editarLivro.render(l,cat));
+        }
+
+        public Result UpdateLivro(String id){
+        Livro l = livroDAO.SelectPorID(id);
+        String email = session().keySet().toString().substring(1, session().keySet().toString().length() - 1);
+            if (session().keySet().size() == 0 && l.getUsuario_dono().getEmail() == email) {
+                return ok("Faça o login primeiro");
+            }
+        DynamicForm f = formularios.form().bindFromRequest();
+        l.setNome(f.get("nome"));l.setDescricao(f.get("descricao"));l.setCategoria(categoriaDAO.SelectPorNome(f.get("categoria")));
+        l.update();
+        Usuario user = usuarioDAO.SelectPorEmail(email);
+        List<Livro> livros = livroDAO.SelectPorUsuario(String.valueOf(user.getId()));
+        return ok(meusLivros.render(livros));
+        }
+
+        public Result RemoveLivro(String id){
+            Livro l = livroDAO.SelectPorID(id);
+            String email = session().keySet().toString().substring(1, session().keySet().toString().length() - 1);
+            if (session().keySet().size() == 0 && l.getUsuario_dono().getEmail() == email) {
+                return ok("Faça o login primeiro");
+            }
+            new File(l.getCaminho()).delete();
+            livroDAO.Delete(l);
+            Usuario user = usuarioDAO.SelectPorEmail(email);
+            List<Livro> livros = livroDAO.SelectPorUsuario(String.valueOf(user.getId()));
+            return ok(meusLivros.render(livros));
+        }
 }

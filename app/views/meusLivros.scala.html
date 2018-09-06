@@ -1,0 +1,30 @@
+@(livros : List[Livro])
+
+@main("Meus Livros"){
+    <!--suppress ALL -->
+    <div>
+        <ol>
+            <tr>
+                <th>Nome do Livro</th>
+                <th>Descrição</th>
+                <th>categoria</th>
+            </tr>
+            @for(livro <- livros){
+                <div>
+                    <td>@livro.getNome</td>
+                    <td>@livro.getDescricao</td>
+                    <td>@livro.getCategoria.getName_cat</td>
+                    <td><a href="/livro/edit/@livro.getId">Editar</a></td>
+                    <td><a onclick="return confirmacao()" href="/livro/remove/@livro.getId">Remover</a></td>
+                </div>
+            }
+        </ol>
+    </div>
+    <script language=javascript>
+            function confirmacao(){
+                if (confirm("tem certeza?"))
+                    alert("Livro apagado")
+            }
+    </script>
+
+}

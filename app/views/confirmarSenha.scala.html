@@ -1,0 +1,15 @@
+@(msg : String)
+
+@main("Confirme sua senha antiga"){
+    <h1>Confirme sua senha antiga</h1>
+    @if(!msg.isEmpty){
+        <h1>@msg</h1>
+    }
+    <form action="/edit/senha" method="post">
+        <label for="senha">Senha Antiga
+            <input type="text" name="senha" id="senha">
+        </label>
+        <button type="submit">Confirmar</button>
+    </form>
+
+}
