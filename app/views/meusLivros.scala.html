@@ -1,30 +1,57 @@
 @(livros : List[Livro])
 
 @main("Meus Livros"){
-    <!--suppress ALL -->
-    <div>
-        <ol>
-            <tr>
-                <th>Nome do Livro</th>
-                <th>Descrição</th>
-                <th>categoria</th>
-            </tr>
-            @for(livro <- livros){
-                <div>
-                    <td>@livro.getNome</td>
-                    <td>@livro.getDescricao</td>
-                    <td>@livro.getCategoria.getName_cat</td>
-                    <td><a href="/livro/edit/@livro.getId">Editar</a></td>
-                    <td><a onclick="return confirmacao()" href="/livro/remove/@livro.getId">Remover</a></td>
-                </div>
-            }
-        </ol>
+
+    @bar.render()
+    <div class="container card-response card" >
+        <div class="row">
+            <div class="table-scroll">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome do Livro</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">categoria</th>
+                    </tr>
+                </thead>
+                    @for(livro <- livros){
+                    <tr>
+                        <td>@livro.getNome</td>
+                        <td>@livro.getDescricao</td>
+                        <td>@livro.getCategoria.getName_cat</td>
+                        <td><a class="btn btn-primary" href="/livro/edit/@livro.getId">Editar</a></td>
+                        <td><a class="btn btn-danger"  href="/livro/remove/@livro.getId">Remover</a></td>
+                    </tr>
+                }
+                </table>
+            </div>
+        </div>
     </div>
-    <script language=javascript>
-            function confirmacao(){
-                if (confirm("tem certeza?"))
-                    alert("Livro apagado")
-            }
+    
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+
+            $(function () {
+                $('.btn-danger').click(function(event){
+                    if (confirm("tem certeza?"))
+                        alert("Livro apagado");
+                    else
+                        return false;
+                });
+            });
+
     </script>
 
+    <style>
+    
+        .card-response{   
+            height: 100%;
+        }
+
+        
+
+    
+    </style>
 }

@@ -1,11 +1,27 @@
 @(categorias : List[Categoria])
 
 @main("Pagina inicial"){
-    <ol>
-        @for(categoria <- categorias){
-            <li><a href="/livros/@categoria.getId">@categoria.getName_cat"</a></li>
-        }
-    </ol>
+    @bar.render()
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Categorias:</h5>
+                        <ul class="card-group list-group" >
+                            @for(categoria <- categorias){
+                                <li class="list-group-item  list-group-item-action "><a href="/livros/@categoria.getId" class="text-success">@categoria.getName_cat</a></li>
+                            }
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
+
 
 
 }

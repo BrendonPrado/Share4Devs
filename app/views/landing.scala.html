@@ -1,38 +1,42 @@
-@main("olá") {
+@(nome:String)
+@main("olá "+nome) {
+    @bar.render()
+    <div class="d-flex align-items-center  text-black bg-white border ">
+        <img class="mr-3  rounded-circle"  src="@routes.Assets.versioned("images/favicon.png")" alt="" width="48" height="48">
+        <div class="lh-100">
+            <h6 class="mb-0 text-black lh-100">Olá @nome</h6>
+        </div>
+    </div>
+    <div class="border border-dark">
+    <ul class="list-group">
+    <div class="my-2 p-5 bg-white  box-shadow">
+        <div class="media text-muted pt-3">
+            <a href="/livros/categoria" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <li class="list-group-item"><h6 class="text-info">Ir para categoria de Livros</h6></li>
+            </a>
+        </div>
+        <div class="media text-muted pt-3">
+            <a href="/livro/todos" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+               <li class="list-group-item"><h6 class=" text-info">Mostrar todos os livros</h6></li>
+            </a>
+        </div>
+        <div class="media text-muted pt-3">
+            <a href="/cadastro/livro" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+               <li class="list-group-item"><h6 class="text-info">Cadastrar livro</h6></li>
+            </a>
+        </div>
+        <div class="media text-muted pt-3">
+            <a href="/meus/livros" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <li class="list-group-item"><h6 class="text-info">Meus Livros</h6></li>
+            </a>
+        </div>
+    </div>
+    </ul>
+    </div>
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
 
-    <div>
-        <a href="/livros">
-            <h3>
-                Pagina Inicial
-            </h3>
-        </a>
-    </div>
-    <div>
-        <a href="/cadastro/livro">
-            <h3>
-                Cadastrar livro
-            </h3>
-        </a>
-    </div>
-    <div>
-        <a href="/meus/livros">
-            <h3>
-                Meus Livros
-            </h3>
-        </a>
-    </div>
-    <div>
-        <a href="/cadastro/gerenciar">
-            <h3>
-                Gerenciar Conta
-            </h3>
-        </a>
-    </div>
-    <div>
-        <a href="/logout">
-            <h3>
-                Sair
-            </h3>
-        </a>
-    </div>
 }

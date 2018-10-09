@@ -1,12 +1,48 @@
-@(user : Usuario)
+@(user : Usuario,msg:String)
 
 @main("Editar Cadastro"){
-    <form action="/edit/cadastro" method="post">
-        <label for="nome">nome
-            <input type="text" name="nome" id="nome" value="@user.getNome"></label><br></br>
-        <label for="email">Email
-            <input type="email" name="email" id="email" value="@user.getEmail">
-        </label><br></br>
-        <button type="submit">Salvar alterações</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+
+                        <h5 class="card-title text-center"><a href="/landing"><img height="200px" width="200px" src="@routes.Assets.versioned("images/Share4Devs.png")" alt="Logo Site"></a></h5>
+                        <h6>Editar Informações do Usuário</h6>
+                        <form  action="/edit/cadastro" method="post" class="form-signin">
+                            <div class="form-label-group">
+                                <label for="nome">Nome:</label>
+                                <input type="text" id="nome" name="nome" value="@user.getNome" class="form-control" placeholder="Nome" required autofocus>
+                            </div>
+                            <br>
+                            <div class="form-label-group">
+                                <label for="email">Email:</label>
+                                <input type="email" name="email" id="email"  value="@user.getEmail" class="form-control" placeholder="email" required>
+                            </div>
+                            <br>
+                            <br>
+                            <button class="btn btn-lg btn-outline-success btn-block text-uppercase" type="submit">Salvar alterações</button>
+                        </form>
+                        @if(!msg.isEmpty){
+                            <span class="alert-danger">@msg</span>
+                        }
+                    </div>
+                </div>
+                <div class="card card-signin my-2">
+                    <div class="media text-muted ">
+                        <a href="/cadastro/gerenciar" class="btn btn-lg btn-light btn-block text-danger text-uppercase">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
 }

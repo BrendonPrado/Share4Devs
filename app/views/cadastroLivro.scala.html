@@ -1,32 +1,61 @@
 @(categorias: List[Categoria])
 
 @main("Cadastrar Livro") {
-    <h1>Cadastrar Novo livro</h1>
-    <div>
-        <form action="/cadastro/livro" id="myForm" enctype="multipart/form-data" method="post">
-            <label for="nome">Nome
-                <input type="text" name="nome" id="nome" required>
-            </label>
-            </br>
-            <label for="descricao">Descrição
-                <textarea name="descricao" id="descricao" cols="30" rows="10" required></textarea>
-            </label>
-            <select name="categoria" id="categoria" required>
-                @for(categoria <- categorias){
-                    <option value="@categoria.getName_cat">@categoria.getName_cat</option>
-                }
-            </select>
-            </br>
-            <label for="file">Arquivo
-                <input type="file" size="60" name="fileUpload" required>
-            </label>
-            <input type="submit" value=" Enviar">
-        </form>
-        <div class="progress">
-            <div class="progress-bar" id="ajaxprogressbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><a href="/landing"><img height="200px" width="200px" src="@routes.Assets.versioned("images/Share4Devs.png")" alt="Logo Site"></a></h5>
+                        <h4>Cadastrar Livro</h4>
+                        <form action="/cadastro/livro" id="myForm" method="post" class="form-signin">
+                            <div class="form-label-group">
+                                <label for="nome">Nome do Livro:</label>
+                                <input type="text" id="nome" name="nome" class="form-control" placeholder="nome" required autofocus>
+                            </div>
+                            <br>
+                            <div class="form-label-group">
+                                    <label for="descricao">Descrição do Livro:</label>
+                                    <textarea  id="descricao" name="descricao" class="form-control" cols="30" rows="4" required autofocus></textarea>
+                            </div>
+                                <br>
+                            <div class="form-label-group">
+                                <label for="descricao">Categoria:
+                                    <select name="categoria" class="form-control" id="categoria" required>
+                                @for(categoria <- categorias){
+                                    <option value="@categoria.getName_cat">@categoria.getName_cat</option>
+                                }
+                                </select>
+                                </label>
+
+                            </div>
+                            <br>
+
+                            <div class="form-label-group">
+                                <label for="file">Arquivo
+                                    <input type="file" class="form-control" size="60" name="fileUpload" required>
+                                </label>
+                            </div>
+                            <br>
+                            <br>
+                            <input class="btn btn-lg btn-outline-primary btn-block text-uppercase" value="Enviar" type="submit">
+                            <hr class="my-4">
+                            <div class="progress">
+                                <div class="progress-bar" id="ajaxprogressbar">
+                                </div>
+                            </div>
+                            <div id="message"></div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="message"></div>
     </div>
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
 
 }

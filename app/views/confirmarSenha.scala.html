@@ -1,15 +1,40 @@
 @(msg : String)
 
 @main("Confirme sua senha antiga"){
-    <h1>Confirme sua senha antiga</h1>
-    @if(!msg.isEmpty){
-        <h1>@msg</h1>
-    }
-    <form action="/edit/senha" method="post">
-        <label for="senha">Senha Antiga
-            <input type="text" name="senha" id="senha">
-        </label>
-        <button type="submit">Confirmar</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><img height="200px" width="200px" src="@routes.Assets.versioned("images/Share4Devs.png")" alt="Logo Site"></h5>
+                        <form  action="/edit/senha" method="post" class="form-signin">
+                            <div class="form-label-group">
+                                <label for="senha">Senha Antiga:</label>
+                                <input type="text" id="senha" name="senha" class="form-control" placeholder="Senha" required autofocus>
+                            </div>
+                            <br>
+                            <button class="btn btn-lg btn-outline-success btn-block text-uppercase" type="submit">Comfirmar</button>
+                        </form>
+                        @if(!msg.isEmpty){
+                            <span class="alert-danger">@msg</span>
+                        }
 
+                    </div>
+                </div>
+                <div class="card card-signin my-2">
+                    <div class="media text-muted ">
+                        <a href="/cadastro/gerenciar" class="btn btn-lg btn-light btn-block text-danger text-uppercase">
+                            Cancelar
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+        <script type="text/javascript">
+                $("html").ready(function () {
+                    $("body").addClass("bg-dark")
+                })
+        </script>
 }

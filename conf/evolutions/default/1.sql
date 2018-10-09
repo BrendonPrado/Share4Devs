@@ -11,7 +11,7 @@ create table categoria (
 
 create table livro (
   id                            integer auto_increment not null,
-  nome                          varchar(25) Not null,
+  nome                          varchar(100) Not null,
   descricao                     mediumtext not null,
   caminho                        mediumtext Not null,
   categoria_id                  integer not null,

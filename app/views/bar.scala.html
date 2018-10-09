@@ -1,0 +1,13 @@
+<nav class="navbar border-bottom border-secondary navbar-dark bg-dark navbar-fixed-top " >
+    <div class="justify-content-lg-start d-lg-inline-flex">
+    <a href="/landing"   class="navbar-brand"> <img src="@routes.Assets.versioned("images/Share4Devs2.png")" alt="Logo Site" height="100px" width="100px"></a>
+            <form action="/livro/buscar" method="post" class="form-inline my-2 mylg-0">
+                <input type="search"  name="buscar" id="buscar" class="form-control mr-sm-2" placeholder="Buscar em todo o site" aria-label="Buscar">
+                <button id="pesquisar" type="submit" class="btn btn-outline-success"  >Pesquisar</button>
+            </form>
+    </div>
+        <div class="justify-content-lg-end  d-lg-inline-flex">
+            <a href="/cadastro/gerenciar" class=" active nav-link ">Gerenciar Conta</a>
+            <a href="/logout" class=" active nav-link text-danger">Sair</a>
+        </div>
+</nav>

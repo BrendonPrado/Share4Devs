@@ -1,4 +1,4 @@
-GET         /cadastro/novo         controllers.UsuarioController.formularioNovoUsuario
+GET         /cadastro/novo         controllers.SiteController.formularioNovoUsuario
 POST        /cadastro/novo         controllers.UsuarioController.salvaNovoUsuario
 GET         /cadastro/gerenciar    controllers.UsuarioController.GerenciarCadastro
 GET         /edit/cadastro         controllers.UsuarioController.EditCadastro
@@ -10,15 +10,18 @@ GET         /remover/cadastro      controllers.UsuarioController.RemoverCadastro
 
 GET         /meus/livros           controllers.UsuarioController.MeusLivros
 
-GET         /login                 controllers.UsuarioController.login
+GET         /                      controllers.SiteController.Home
+GET         /login                 controllers.SiteController.login
 POST        /login/logar           controllers.UsuarioController.logar
 GET         /landing               controllers.UsuarioController.Landing
 
 GET         /cadastro/livro        controllers.LivroController.CadastroLivro
 POST        /cadastro/livro        controllers.LivroController.SalvaNovoLivro
 
-GET         /livros                controllers.LivroController.PaginaIni
+GET         /livros/categoria      controllers.LivroController.PaginaIni
 GET         /livros/*id            controllers.LivroController.MostraLivros(id)
+GET         /livro/todos           controllers.LivroController.MostrarTodosLivros
+POST         /livro/buscar           controllers.LivroController.BuscarLivros
 
 GET         /livro/down/*id        controllers.LivroController.DownloadLivro(id)
 GET         /livro/edit/*id        controllers.LivroController.EditarLivro(id)

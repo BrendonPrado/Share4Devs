@@ -1,25 +1,55 @@
 @(user : Usuario, msg : String)
 
 @main("Gerenciar conta"){
-    @if(!msg.isEmpty){
-        <span class="alert-success">@msg</span>
-    }
-    <div>
-        <h3>Nome atual:</h3>
-        <h3><b>@user.getNome</b></h3>
-    </div>
-    <div>
-        <p>Email atual:</p><p><b>@user.getEmail</b></p>
-    </div>
-    <h1><a href="/edit/cadastro">Editar Nome ou Email</a></h1>
-    <div>
-        <h3><a href="/edit/senha">Redefinir Senha</a></h3>
-        <h3><a onclick="confirmacao" href="/remover/cadastro">Excluir Conta</a></h3>
-    </div>
-    <script language=javascript>
-            function confirmacao(){
-                if (confirm("tem certeza?"))
-                    alert("Livro apagado")
-            }
+    @bar.render()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+
+                        <div class="form-label-group">
+
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" disabled="true" value="@user.getNome" class="form-control" placeholder="Nome" required autofocus>
+                        </div>
+                        <br>
+                        <div class="form-label-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" value="@user.getEmail" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-label-group">
+                            <br>
+                            @if(!msg.isEmpty){
+                                <span class="alert-success">@msg</span>
+                            }
+                        <a class="btn btn-lg btn-outline-primary  btn-block  text-uppercase" href="/edit/cadastro">Alterar nome ou Email</a>
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <div class="media text-muted ">
+                            <a href="/edit/senha" class="btn btn-lg btn-light btn-block text-primary text-uppercase">
+                                Redefinir Senha
+                            </a>
+                        </div>
+                <div class="card card-signin my-4">
+                    <div class="media text-muted ">
+
+                    <a href="/remover/cadastro" class="btn btn-lg btn-light btn-block text-danger text-uppercase">
+                            Excluir Conta
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
     </script>
 }

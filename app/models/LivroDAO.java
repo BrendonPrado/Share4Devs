@@ -11,11 +11,21 @@ public class LivroDAO {
     public void Insert(Livro l){
         l.save();
     }
+
     public Livro SelectPorID(String id){
         Livro l = ebeans.find(Livro.class).where().like("id",id).findUnique();
         return l;
     }
 
+    public List<Livro> SelectALL(){
+        List<Livro> livros = ebeans.find(Livro.class).findList();
+        return livros;
+    }
+
+    public List<Livro> SelectPorNomeAprox(String busca){
+        List<Livro> livros = ebeans.find(Livro.class).where().icontains("nome",busca).findList();
+        return livros;
+    }
 
     public Livro SelectPorNome(String n){
         Livro l = ebeans.find(Livro.class).where().like("nome", n).findUnique();

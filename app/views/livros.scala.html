@@ -1,21 +1,38 @@
 @(livros: List[Livro])
 
 @main("Livros Compartilhados"){
-    <div>
-        <ol>
-            <tr>
-                <th>Nome do Livro</th>
-                <th>Descrição</th>
-                <th>categoria</th>
-            </tr>
-        @for(livro <- livros){
-            <div>
-               <td>@livro.getNome</td>
-               <td>@livro.getDescricao</td>
-                <td>@livro.getCategoria.getName_cat</td>
-                <td><a type="submit" href="/livro/down/@livro.getId" method="post">Download</a></td>
+    @bar.render()
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card-header-tabs my-5">
+                <div class="card">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Livro</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">categoria</th>
+                            </tr>
+                        </thead>
+                    @for(livro <- livros){
+                        <tr>
+                           <td>@livro.getNome</td>
+                           <td>@livro.getDescricao</td>
+                           <td>@livro.getCategoria.getName_cat</td>
+                           <td><a type="submit" class="btn btn-primary" href="/livro/down/@livro.getId" method="post">Download</a></td>
+                            </tr>
+                    }
+                    </table>
+
+                </div>
             </div>
-        }
-        </ol>
+        </div>
     </div>
+
+    <script type="text/javascript">
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
+
 }

@@ -1,20 +1,46 @@
 @(livro: Livro , categorias: List[Categoria])
 
 @main("Editar"){
-    <div>
-        <form action="/livro/edit/@livro.getId" method="post">
-        <label for="nome">Nome:
-            <input type="text" name="nome" id="nome"  value="@livro.getNome" required></label>
-        <label for="descricao">
-            <textarea name="descricao" id="descricao" cols="30" rows="10" required>@livro.getDescricao</textarea>
-        </label>
-            <select name="categoria" id="categoria" required>
-                <option value="@livro.getCategoria.getName_cat">@livro.getCategoria.getName_cat</option>
-                @for(categoria <- categorias){
-                <option value="@categoria.getName_cat">@categoria.getName_cat</option>
-            }
-            </select>
-            <button type="submit">Salvar alterçoões</button>
-        </form>
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center"><a href="/landing"><img height="200px" width="200px" src="@routes.Assets.versioned("images/Share4Devs.png")" alt="Logo Site"></a></h5>
+                    <h4>Editar Informações do livro:</h4>
+                    <form action="/livro/edit/@livro.getId"  method="post" class="form-signin">
+                        <div class="form-label-group">
+                            <label for="nome">Nome do Livro:</label>
+                            <input type="text" id="nome" value="@livro.getNome" name="nome" class="form-control" placeholder="nome" required autofocus>
+                        </div>
+                        <br>
+                        <div class="form-label-group">
+                            <label for="descricao">Descrição do Livro:</label>
+                            <textarea  id="descricao" name="descricao" class="form-control" cols="30" rows="4" required autofocus>@livro.getDescricao</textarea>
+                        </div>
+                        <br>
+                        <div class="form-label-group">
+                            <label for="descricao">Categoria:
+                                <select name="categoria" class="form-control" id="categoria" required>
+                                <option value="@livro.getCategoria.getName_cat">@livro.getCategoria.getName_cat</option>
+                                    @for(categoria <- categorias){
+                                    <option value="@categoria.getName_cat">@categoria.getName_cat</option>
+                                }
+                                </select>
+                            </label>
+                        </div>
+                        <br>
+                        <br>
+                        <input class="btn btn-lg btn-outline-primary btn-block text-uppercase" value="Salvar alterçoões" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript">
+
+            $("html").ready(function () {
+                $("body").addClass("bg-dark")
+            })
+    </script>
+
 }
