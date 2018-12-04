@@ -1,38 +1,167 @@
-@(livros: List[Livro])
+@(livros: List[Livro],avaliacao: List[Avaliacao])
+
 
 @main("Livros Compartilhados"){
     @bar.render()
     <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card-header-tabs my-5">
-                <div class="card">
+            <div class="container card-response card my-5">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Nome do Livro</th>
                                 <th scope="col">Descrição</th>
                                 <th scope="col">categoria</th>
+                                <th scope="col">Avaliação</th>
+                                <th scope="col">Média Avaliação</th>
                             </tr>
                         </thead>
                     @for(livro <- livros){
+
                         <tr>
                            <td>@livro.getNome</td>
                            <td>@livro.getDescricao</td>
                            <td>@livro.getCategoria.getName_cat</td>
-                           <td><a type="submit" class="btn btn-primary" href="/livro/down/@livro.getId" method="post">Download</a></td>
-                            </tr>
+                            <td>
+                                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                                <div class="rating left">
+                                    <div class="stars right">
+                                        @for(ava <- avaliacao) {
+                                            @if(livro.getId == ava.getLivro_avaliado.getId) {
+                                                @if(ava.getNota_avaliacao == 0){
+                                                    <a class="star" value="@livro.getId">1</a>
+                                                    <a class="star" value="@livro.getId">2</a>
+                                                    <a class="star" value="@livro.getId">3</a>
+                                                    <a class="star" value="@livro.getId">4</a>
+                                                    <a class="star" value="@livro.getId">5</a>
+
+                                                }
+                                                @if(ava.getNota_avaliacao == 1){
+                                                        <a class="star rated" value="@livro.getId">1</a>
+                                                        <a class="star" value="@livro.getId">2</a>
+                                                        <a class="star" value="@livro.getId">3</a>
+                                                        <a class="star" value="@livro.getId">4</a>
+                                                        <a class="star" value="@livro.getId">5</a>
+
+                                                }
+                                                @if(ava.getNota_avaliacao == 2) {
+
+                                                    <a class="star rated" value="@livro.getId">1</a>
+                                                    <a class="star rated" value="@livro.getId">2</a>
+                                                    <a class="star" value="@livro.getId">3</a>
+                                                    <a class="star" value="@livro.getId">4</a>
+                                                    <a class="star" value="@livro.getId">5</a>
+
+                                                }
+                                                @if(ava.getNota_avaliacao == 3) {
+                                                    <a class="star rated" value="@livro.getId">1</a>
+                                                    <a class="star rated" value="@livro.getId">2</a>
+                                                    <a class="star rated" value="@livro.getId">3</a>
+                                                    <a class="star" value="@livro.getId">4</a>
+                                                    <a class="star" value="@livro.getId">5</a>
+
+                                                }
+                                                @if(ava.getNota_avaliacao == 4) {
+                                                    <a class="star rated" value="@livro.getId">1</a>
+                                                    <a class="star rated" value="@livro.getId">2</a>
+                                                    <a class="star rated" value="@livro.getId">3</a>
+                                                    <a class="star rated" value="@livro.getId">4</a>
+                                                    <a class="star" value="@livro.getId">5</a>
+                                                }
+                                                @if(ava.getNota_avaliacao == 5) {
+                                                    <a class="star rated" value="@livro.getId">1</a>
+                                                    <a class="star rated" value="@livro.getId">2</a>
+                                                    <a class="star rated" value="@livro.getId">3</a>
+                                                    <a class="star rated" value="@livro.getId">4</a>
+                                                    <a class="star rated" value="@livro.getId">5</a>
+
+                                                }
+
+                                        }
+                                     }
+
+
+
+
+                                    </div>
+                                </div>
+                </td>
+                            <td class="med" value="@livro.getId">@livro.getNota</td>
+                            <td><a type="submit" class="btn btn-primary" href="/livro/down/@livro.getId" method="post">Download</a></td>
+                        </tr>
                     }
                     </table>
 
-                </div>
-            </div>
         </div>
     </div>
+
+    <style>
+            .right {
+                float: right;
+            }
+
+            .left {
+                float: left;
+            }
+
+            .rating .stars {
+                margin-right: 15px;
+            }
+
+            .rating .stars .star {
+                float: left;
+                padding: 1px 1px;
+                cursor: pointer;
+            }
+
+            .rating .stars .star:before {
+                font-family: 'FontAwesome';
+                content: '\f005';
+                color: #d0e8f0;
+                font-size: 2em;
+            }
+
+            .rating .stars .star:hover:before,
+            .rating .stars .star.to_rate:before,
+            .rating .stars .star.rated:before {
+                color: #80c1d5;
+            }
+
+            .rating .stars .star.no_to_rate:before {
+                color: #d0e8f0;
+            }
+    </style>
 
     <script type="text/javascript">
             $("html").ready(function () {
                 $("body").addClass("bg-dark")
             })
+
+            $('.rating .star ').click(function () {
+                var nota = $(this).text();
+                var id = $(this).attr('value');
+                $.post("/avaliar", {id: id, nota: nota}, function (resp) {
+                            byValue = document.querySelectorAll('td[value="'+id+'"]');
+                            byValue[0].innerHTML = ''+resp+''
+                            console.log(byValue[0].innerHTML)
+                        }
+                );
+            });
+
+
+            jQuery(document).ready(function($) {
+                $('.rating .star').hover(function() {
+                    $(this).addClass('to_rate');
+                    $(this).parent().find('.star:lt(' + $(this).index() + ')').addClass('to_rate');
+                    $(this).parent().find('.star:gt(' + $(this).index() + ')').addClass('no_to_rate');
+                }).mouseout(function() {
+                    $(this).parent().find('.star').removeClass('to_rate');
+                    $(this).parent().find('.star:gt(' + $(this).index() + ')').removeClass('no_to_rate');
+                }).click(function() {
+                    $(this).removeClass('to_rate').addClass('rated');
+                    $(this).parent().find('.star:lt(' + $(this).index() + ')').removeClass('to_rate').addClass('rated');
+                    $(this).parent().find('.star:gt(' + $(this).index() + ')').removeClass('no_to_rate').removeClass('rated');
+                });
+            });
     </script>
 
 }

@@ -7,6 +7,7 @@ import com.avaje.ebean.EbeanServer;
 import java.util.List;
 
 public class CategoriaDAO {
+
     public void Insert(Categoria categoria){
         categoria.save();
     }

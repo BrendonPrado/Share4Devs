@@ -22,10 +22,11 @@ public class LivroController extends Controller {
     @Inject
     private FormFactory formularios;
 
+
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
     private LivroDAO livroDAO = new LivroDAO();
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
-
+    private AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
 
     public Result CadastroLivro() {
         if (session().keySet().size() == 0) {
@@ -36,7 +37,7 @@ public class LivroController extends Controller {
         }
     }
 
-    public Result SalvaNovoLivro() {
+    public Result SalvaNovoLivro() throws InterruptedException {
         Http.MultipartFormData body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart arquivo = body.getFile("fileUpload");
         DynamicForm f = formularios.form().bindFromRequest();
@@ -44,12 +45,17 @@ public class LivroController extends Controller {
         String descricao = f.get("descricao");
         String categoria = f.get("categoria");
         if (arquivo != null) {
-            String fileName = arquivo.getFilename();
-            File file = (File) arquivo.getFile();
-            FileUtils.move(file.getAbsolutePath(), "public/livros/" + nome + fileName.substring(fileName.lastIndexOf("."), fileName.length()));
-            String email = session("conectado");
-            livroDAO.Insert(new Livro(nome, descricao, "public/livros/" + nome + fileName.substring(fileName.lastIndexOf("."), fileName.length()), categoriaDAO.SelectPorNome(categoria), usuarioDAO.SelectPorEmail(email)));
-            return ok( login.render("Faça o login Primeiro"));
+            try{
+                String fileName = arquivo.getFilename();
+                File file = (File) arquivo.getFile();
+                FileUtils.move(file.getPath(), "public/livros/" + nome + fileName.substring(fileName.lastIndexOf("."), fileName.length()));
+                String email = session("conectado");
+                livroDAO.Insert(new Livro(nome, descricao, "public/livros/" + nome + fileName.substring(fileName.lastIndexOf("."), fileName.length()), categoriaDAO.SelectPorNome(categoria), usuarioDAO.SelectPorEmail(email),0));
+                return ok("Livro upado com sucesso!");
+            }catch (Exception e){
+                return ok("Nome já usado, por favor escolha outro nome para seu livro!");
+            }
+
         } else {
             flash("error", "Missing file");
             List<Categoria> cat = categoriaDAO.SelectALL();
@@ -74,7 +80,22 @@ public class LivroController extends Controller {
             if(l.size()==0){
                 return ok("não há livros cadastrados");
             }
-            return ok(livros.render(l));
+            String email =  session("conectado");
+            List<Avaliacao> avs = avaliacaoDAO.SelectPorIDUsuario(usuarioDAO.SelectPorEmail(email).getId());
+            for (Livro livro:l) {
+                int alarme = 0;
+                for (Avaliacao ava : avs) {
+                    if(ava.getLivro_avaliado().getId()==livro.getId()) {
+                        alarme = 1;
+                        break;
+                    }
+                }
+                if(alarme==0){
+                    avs.add(new Avaliacao(usuarioDAO.SelectPorEmail(email),livro,0));
+                }
+
+            }
+            return ok(livros.render(l,avs));
         }
 
         public Result DownloadLivro(String id){
@@ -106,7 +127,22 @@ public class LivroController extends Controller {
             if(l.size()==0){
                 return ok("não há livros cadastrados");
             }
-            return ok(livros.render(l));
+            String email =  session("conectado");
+            List<Avaliacao> avs = avaliacaoDAO.SelectPorIDUsuario(usuarioDAO.SelectPorEmail(email).getId());
+            for (Livro livro:l) {
+                int alarme = 0;
+                for (Avaliacao ava : avs) {
+                    if(ava.getLivro_avaliado().getId()==livro.getId()) {
+                        alarme = 1;
+                        break;
+                    }
+                }
+                if(alarme==0){
+                    avs.add(new Avaliacao(usuarioDAO.SelectPorEmail(email),livro,0));
+                }
+
+            }
+            return ok(livros.render(l,avs));
         }
 
         public Result BuscarLivros(){
@@ -118,8 +154,22 @@ public class LivroController extends Controller {
             if(l.size()==0){
                 return ok("não há livros cadastrados");
             }
-            return ok(livros.render(l));
+            String email =  session("conectado");
+            List<Avaliacao> avs = avaliacaoDAO.SelectPorIDUsuario(usuarioDAO.SelectPorEmail(email).getId());
+            for (Livro livro:l) {
+                int alarme = 0;
+                for (Avaliacao ava : avs) {
+                    if(ava.getLivro_avaliado().getId()==livro.getId()) {
+                        alarme = 1;
+                        break;
+                    }
+                }
+                if(alarme==0){
+                    avs.add(new Avaliacao(usuarioDAO.SelectPorEmail(email),livro,0));
+                }
 
+            }
+            return ok(livros.render(l,avs));
 
         }
 
@@ -151,4 +201,14 @@ public class LivroController extends Controller {
                 return ok(meusLivros.render(livros));
             }
         }
+
+    public Double CalcularMedia(List<Avaliacao> avs,Livro l) {
+        double soma = 0;
+        for (Avaliacao ava :avs) {
+            soma+=ava.getNota_avaliacao();
+        }
+        l.setNota(soma/avs.size());
+        livroDAO.UpdateLivro(l);
+        return soma/avs.size();
+    }
 }

@@ -26,12 +26,16 @@ public class Livro extends Model {
     @ManyToOne(targetEntity = Usuario.class,optional = false)
     private Usuario usuario_dono;
 
-    public Livro(String nome, String descricao, String caminho, Categoria categoria, Usuario usuario_dono) {
+    @Column(name = "nota",columnDefinition = "DOUBLE not null")
+    private double nota;
+
+    public Livro(String nome, String descricao, String caminho, Categoria categoria, Usuario usuario_dono,int nota) {
         this.nome = nome;
         this.descricao = descricao;
         this.caminho = caminho;
         this.categoria = categoria;
         this.usuario_dono = usuario_dono;
+        this.nota = nota;
     }
 
     public int getId() {
@@ -78,4 +82,15 @@ public class Livro extends Model {
         return usuario_dono;
     }
 
+    public void setUsuario_dono(Usuario usuario_dono) {
+        this.usuario_dono = usuario_dono;
+    }
+
+    public Double getNota() {
+        return nota;
+    }
+
+    public void setNota(Double nota) {
+        this.nota = nota;
+    }
 }
