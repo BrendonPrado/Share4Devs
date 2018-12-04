@@ -1,0 +1,35 @@
+GET         /cadastro/novo         controllers.SiteController.formularioNovoUsuario
+POST        /cadastro/novo         controllers.UsuarioController.salvaNovoUsuario
+GET         /cadastro/gerenciar    controllers.UsuarioController.GerenciarCadastro
+GET         /edit/cadastro         controllers.UsuarioController.EditCadastro
+POST        /edit/cadastro         controllers.UsuarioController.UpdateCadastro
+GET         /edit/senha            controllers.UsuarioController.EditSenha
+POST        /edit/senha            controllers.UsuarioController.ConfirmarSenhaAntiga
+POST        /redefinir/senha       controllers.UsuarioController.RedefinirSenha
+GET         /remover/cadastro      controllers.UsuarioController.RemoverCadastro
+
+GET         /meus/livros           controllers.UsuarioController.MeusLivros
+
+GET         /                      controllers.SiteController.Home
+GET         /login                 controllers.SiteController.login
+POST        /login/logar           controllers.UsuarioController.logar
+GET         /landing               controllers.UsuarioController.Landing
+
+GET         /cadastro/livro        controllers.LivroController.CadastroLivro
+POST        /cadastro/livro        controllers.LivroController.SalvaNovoLivro
+
+GET         /livros/categoria      controllers.LivroController.PaginaIni
+GET         /livros/*id            controllers.LivroController.MostraLivros(id)
+GET         /livro/todos           controllers.LivroController.MostrarTodosLivros
+POST         /livro/buscar         controllers.LivroController.BuscarLivros
+
+GET         /livro/down/*id        controllers.LivroController.DownloadLivro(id)
+GET         /livro/edit/*id        controllers.LivroController.EditarLivro(id)
+POST        /livro/edit/*id        controllers.LivroController.UpdateLivro(id)
+GET         /livro/remove/*id      controllers.LivroController.RemoveLivro(id)
+GET        /logout                 controllers.UsuarioController.Logout
+
+
+GET         /assets/*file          controllers.Assets.versioned(path="/public", file: Asset)
+
+POST         /avaliar              controllers.AvaliacaoController.AvaliarLivro
